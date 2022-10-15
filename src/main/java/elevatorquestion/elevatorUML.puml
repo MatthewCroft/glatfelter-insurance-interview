@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ControlPanel {
+    List<Integer> floors
+    checkInvalidFloor(int floor)
+}
+
+class Elevator {
+    ControlPanel controlPanel
+    Direction direction
+    int floor
+    TreeSet<Integer> ascending
+    List<Integer> ascendingMissed
+    TreeSet<Integer> descending
+    List<Integer> descendingMissed
+    ElevatorHelper elevatorHelper
+
+    +userInsideRequest(int floor)
+    +userOutsideRequest(int floor, Direction)
+    +updateFloor()
+    -directionUpdate()
+    -updateWorkingQueues()
+
+    +getDirection()
+    +getAscendingMissed()
+    +getDescendingMissed()
+    +getFloor()
+    +getAscending()
+    +getDescending()
+    +getControlPanel()
+    -setFloor(int floor)
+}
+
+class ElevatorHelper {
+    +noPendingElevatorQueues(TreeSet<Integer>, List<Integer>, TreeSet<Integer>, List<Integer>)
+    +isValidToMoveUp(Direction, TreeSet<Integer>)
+    +isValidToMoveDown(Direction, TreeSet<Integer>)
+    +shouldAddToCurrentAscendingQueue(int, Direction, int, Direction)
+    +shouldAddToCurrentDescendingQueue(int, Direction, int, Direction)
+}
+
+enum Direction {
+    UP
+    DOWN
+}
+
+Elevator *-- ControlPanel
+Elevator *-- Direction
+Elevator *-- ElevatorHelper
+
+@enduml

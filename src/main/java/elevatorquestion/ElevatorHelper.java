@@ -38,15 +38,23 @@ public class ElevatorHelper {
         return false;
     }
 
-    public boolean shouldAddToCurrentAscendingQueue(int userFloor, Direction userDirection, int floor, Direction currentDirection) {
-        if (currentDirection == Direction.UP && userDirection == Direction.UP && floor <= userFloor) {
+    /**
+     * Validates whether an outside request should be in the current ascending queue
+     * by making sure the request/current Direction is up and the userFloor and greater than the currentFloor
+     */
+    public boolean shouldAddToCurrentAscendingQueue(int userFloor, Direction userDirection, int currentFloor, Direction currentDirection) {
+        if (currentDirection == Direction.UP && userDirection == Direction.UP && currentFloor <= userFloor) {
             return true;
         }
         return false;
     }
 
-    public boolean shouldAddToCurrentDescendingQueue(int userFloor, Direction userDirection, int floor, Direction currentDirection) {
-        if (userDirection == Direction.DOWN && currentDirection == Direction.DOWN && userFloor <= floor) {
+    /**
+     * Validates whether an outside request should be in the current descending queue
+     * by making sure the request/current Direction is down and the userFloor and less than the currentFloor
+     */
+    public boolean shouldAddToCurrentDescendingQueue(int userFloor, Direction userDirection, int currentFloor, Direction currentDirection) {
+        if (userDirection == Direction.DOWN && currentDirection == Direction.DOWN && userFloor <= currentFloor) {
             return true;
         }
         return false;
